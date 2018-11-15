@@ -46,6 +46,15 @@ public interface WooCommerce {
         return getAll(endpointBase, Collections.emptyMap());
     }
 
+	/**
+	 * Retrieves all WooCommerce entities with request parameters
+	 *
+	 * @param endpointBase API endpoint base @see EndpointBaseType
+	 * @param params additional request params
+	 * @return String
+	 */
+	String getAllRaw(String endpointBase, Map<String, String> params);
+
     /**
      * Updates WooCommerce entity
      *

@@ -24,6 +24,15 @@ public interface HttpClient {
      */
     List getAll(String url);
 
+
+	/**
+	 * Requests url with HTTP GET and returns String
+	 *
+	 * @param url url to request
+	 * @return retrieved result
+	 */
+	String getAllRaw(String url);
+
     /**
      * Requests url with HTTP POST and retrieves result object as Map
      *
