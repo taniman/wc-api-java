@@ -34,7 +34,10 @@ public class DefaultHttpClient implements HttpClient {
 	private ObjectMapper mapper;
 
 	public DefaultHttpClient() {
-		this.httpClient = HttpClientBuilder.create().build();
+		this.httpClient = HttpClientBuilder
+				.create()
+				.setMaxConnPerRoute(5)
+				.build();
 		this.mapper = new ObjectMapper();
 	}
 
