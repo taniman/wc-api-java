@@ -43,6 +43,8 @@ public interface HttpClient {
      */
     Map post(String url, Map<String, String> params, Map<String, Object> object);
 
+    String postRaw(String url, Map<String, String> params, Map<String, Object> object);
+
     /**
      * Requests url with HTTP PUT and retrieves result object as Map
      *

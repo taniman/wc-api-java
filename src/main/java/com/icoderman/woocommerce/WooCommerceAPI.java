@@ -28,6 +28,12 @@ public class WooCommerceAPI implements WooCommerce {
         return client.post(url, OAuthSignature.getAsMap(config, url, com.icoderman.woocommerce.HttpMethod.POST), object);
     }
 
+	@Override
+	public String createRaw(String endpointBase, Map<String, Object> object) {
+		String url = String.format(API_URL_FORMAT, config.getUrl(), apiVersion, endpointBase);
+		return client.postRaw(url, OAuthSignature.getAsMap(config, url, com.icoderman.woocommerce.HttpMethod.POST), object);
+	}
+
     @Override
     public Map get(String endpointBase, int id) {
         String url = String.format(API_URL_ONE_ENTITY_FORMAT, config.getUrl(), apiVersion, endpointBase, id);

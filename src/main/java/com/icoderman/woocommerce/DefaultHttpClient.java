@@ -75,6 +75,21 @@ public class DefaultHttpClient implements HttpClient {
 	}
 
 	@Override
+	public String postRaw(String url, Map<String, String> params, Map<String, Object> object) {
+		List<NameValuePair> postParameters = getParametersAsList(params);
+		HttpPost httpPost;
+		try {
+			URIBuilder uriBuilder = new URIBuilder(url);
+			uriBuilder.addParameters(postParameters);
+			httpPost = new HttpPost(uriBuilder.build());
+			httpPost.setHeader(CONTENT_TYPE, APPLICATION_JSON);
+			return postEntityRaw(object, httpPost);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
 	public Map put(String url, Map<String, String> params, Map<String, Object> object) {
 		List<NameValuePair> postParameters = getParametersAsList(params);
 		HttpPut httpPut;
@@ -108,6 +123,16 @@ public class DefaultHttpClient implements HttpClient {
 			HttpEntity entity = new ByteArrayEntity(this.mapper.writeValueAsBytes(objectForJson), ContentType.APPLICATION_JSON);
 			httpPost.setEntity(entity);
 			return getEntityAndReleaseConnection(httpPost, Map.class);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private String postEntityRaw(Map<String, Object> objectForJson, HttpEntityEnclosingRequestBase httpPost) {
+		try {
+			HttpEntity entity = new ByteArrayEntity(this.mapper.writeValueAsBytes(objectForJson), ContentType.APPLICATION_JSON);
+			httpPost.setEntity(entity);
+			return getEntityAndReleaseConnection(httpPost);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}

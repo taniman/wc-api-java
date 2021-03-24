@@ -18,6 +18,8 @@ public interface WooCommerce {
      */
     Map create(String endpointBase, Map<String, Object> object);
 
+    String createRaw(String endpointBase, Map<String, Object> object);
+
     /**
      * Retrieves on WooCommerce entity
      *
